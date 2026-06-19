@@ -53,7 +53,11 @@ public class CustomerServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             req.setAttribute("errorMsg", "操作失败：" + e.getMessage());
-            listCustomers(req, resp);
+            try {
+                listCustomers(req, resp);
+            } catch (Exception ex) {
+                throw new ServletException(ex);
+            }
         }
     }
 
@@ -81,7 +85,11 @@ public class CustomerServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             req.setAttribute("errorMsg", "操作失败：" + e.getMessage());
-            listCustomers(req, resp);
+            try {
+                listCustomers(req, resp);
+            } catch (Exception ex) {
+                throw new ServletException(ex);
+            }
         }
     }
 

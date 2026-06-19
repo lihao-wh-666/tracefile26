@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Jun 19 16:27:48 UTC 2026
+classworlds-1.1.jar>central=
+classworlds-1.1.pom>central=
+classworlds-1.1.jar>aliyunmaven=
+classworlds-1.1.pom>aliyunmaven=

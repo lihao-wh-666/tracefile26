@@ -53,7 +53,11 @@ public class AccountServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             req.setAttribute("errorMsg", "操作失败：" + e.getMessage());
-            listAccounts(req, resp);
+            try {
+                listAccounts(req, resp);
+            } catch (Exception ex) {
+                throw new ServletException(ex);
+            }
         }
     }
 
@@ -78,7 +82,11 @@ public class AccountServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             req.setAttribute("errorMsg", "操作失败：" + e.getMessage());
-            listAccounts(req, resp);
+            try {
+                listAccounts(req, resp);
+            } catch (Exception ex) {
+                throw new ServletException(ex);
+            }
         }
     }
 

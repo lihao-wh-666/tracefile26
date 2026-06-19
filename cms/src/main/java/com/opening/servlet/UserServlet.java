@@ -50,7 +50,11 @@ public class UserServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             req.setAttribute("errorMsg", "操作失败：" + e.getMessage());
-            listUsers(req, resp);
+            try {
+                listUsers(req, resp);
+            } catch (Exception ex) {
+                throw new ServletException(ex);
+            }
         }
     }
 
@@ -81,7 +85,11 @@ public class UserServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             req.setAttribute("errorMsg", "操作失败：" + e.getMessage());
-            listUsers(req, resp);
+            try {
+                listUsers(req, resp);
+            } catch (Exception ex) {
+                throw new ServletException(ex);
+            }
         }
     }
 

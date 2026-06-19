@@ -3,6 +3,8 @@ package com.opening.utils;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,35 +15,72 @@ import java.util.Properties;
 public class DBUtil {
 
     private static DruidDataSource dataSource;
+    private static final String DEFAULT_CONFIG = "db.properties";
 
     static {
+        InputStream is = null;
         try {
-            InputStream is = DBUtil.class.getClassLoader().getResourceAsStream("db.properties");
+            String configPath = System.getProperty("db.config");
+            if (configPath != null && !configPath.trim().isEmpty()) {
+                File configFile = new File(configPath);
+                if (configFile.exists() && configFile.isFile()) {
+                    is = new FileInputStream(configFile);
+                    System.out.println("[DBUtil] Loading config from external path: " + configPath);
+                } else {
+                    System.out.println("[DBUtil] External config not found: " + configPath + ", fallback to classpath");
+                }
+            }
+
+            if (is == null) {
+                is = DBUtil.class.getClassLoader().getResourceAsStream(DEFAULT_CONFIG);
+                if (is == null) {
+                    throw new RuntimeException("Cannot find db.properties in classpath: " + DEFAULT_CONFIG);
+                }
+                System.out.println("[DBUtil] Loading config from classpath: " + DEFAULT_CONFIG);
+            }
+
             Properties props = new Properties();
             props.load(is);
 
             Properties druidProps = new Properties();
-            druidProps.setProperty("driverClassName", props.getProperty("db.driverClassName"));
-            druidProps.setProperty("url", props.getProperty("db.url"));
-            druidProps.setProperty("username", props.getProperty("db.username"));
-            druidProps.setProperty("password", props.getProperty("db.password"));
-            druidProps.setProperty("initialSize", props.getProperty("db.initialSize"));
-            druidProps.setProperty("maxActive", props.getProperty("db.maxActive"));
-            druidProps.setProperty("minIdle", props.getProperty("db.minIdle"));
-            druidProps.setProperty("maxWait", props.getProperty("db.maxWait"));
-            druidProps.setProperty("timeBetweenEvictionRunsMillis", props.getProperty("db.timeBetweenEvictionRunsMillis"));
-            druidProps.setProperty("minEvictableIdleTimeMillis", props.getProperty("db.minEvictableIdleTimeMillis"));
-            druidProps.setProperty("validationQuery", props.getProperty("db.validationQuery"));
-            druidProps.setProperty("testWhileIdle", props.getProperty("db.testWhileIdle"));
-            druidProps.setProperty("testOnBorrow", props.getProperty("db.testOnBorrow"));
-            druidProps.setProperty("testOnReturn", props.getProperty("db.testOnReturn"));
-            druidProps.setProperty("poolPreparedStatements", props.getProperty("db.poolPreparedStatements"));
-            druidProps.setProperty("maxPoolPreparedStatementPerConnectionSize", props.getProperty("db.maxPoolPreparedStatementPerConnectionSize"));
+            setPropertyIfExists(druidProps, "driverClassName", props, "db.driverClassName");
+            setPropertyIfExists(druidProps, "url", props, "db.url");
+            setPropertyIfExists(druidProps, "username", props, "db.username");
+            setPropertyIfExists(druidProps, "password", props, "db.password");
+            setPropertyIfExists(druidProps, "initialSize", props, "db.initialSize");
+            setPropertyIfExists(druidProps, "maxActive", props, "db.maxActive");
+            setPropertyIfExists(druidProps, "minIdle", props, "db.minIdle");
+            setPropertyIfExists(druidProps, "maxWait", props, "db.maxWait");
+            setPropertyIfExists(druidProps, "timeBetweenEvictionRunsMillis", props, "db.timeBetweenEvictionRunsMillis");
+            setPropertyIfExists(druidProps, "minEvictableIdleTimeMillis", props, "db.minEvictableIdleTimeMillis");
+            setPropertyIfExists(druidProps, "validationQuery", props, "db.validationQuery");
+            setPropertyIfExists(druidProps, "testWhileIdle", props, "db.testWhileIdle");
+            setPropertyIfExists(druidProps, "testOnBorrow", props, "db.testOnBorrow");
+            setPropertyIfExists(druidProps, "testOnReturn", props, "db.testOnReturn");
+            setPropertyIfExists(druidProps, "poolPreparedStatements", props, "db.poolPreparedStatements");
+            setPropertyIfExists(druidProps, "maxPoolPreparedStatementPerConnectionSize", props, "db.maxPoolPreparedStatementPerConnectionSize");
 
             dataSource = (DruidDataSource) DruidDataSourceFactory.createDataSource(druidProps);
+            System.out.println("[DBUtil] DataSource initialized successfully, url=" + props.getProperty("db.url"));
         } catch (Exception e) {
+            System.err.println("[DBUtil] Failed to initialize DataSource: " + e.getMessage());
             e.printStackTrace();
-            throw new RuntimeException("初始化数据库连接池失败", e);
+            throw new RuntimeException("初始化数据库连接池失败: " + e.getMessage(), e);
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (Exception e) {
+                    // ignore
+                }
+            }
+        }
+    }
+
+    private static void setPropertyIfExists(Properties target, String targetKey, Properties source, String sourceKey) {
+        String value = source.getProperty(sourceKey);
+        if (value != null && !value.trim().isEmpty()) {
+            target.setProperty(targetKey, value.trim());
         }
     }
 

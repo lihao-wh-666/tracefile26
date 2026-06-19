@@ -37,7 +37,11 @@ public class AuditRecordServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             req.setAttribute("errorMsg", "操作失败：" + e.getMessage());
-            listRecords(req, resp);
+            try {
+                listRecords(req, resp);
+            } catch (Exception ex) {
+                throw new ServletException(ex);
+            }
         }
     }
 

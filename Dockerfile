@@ -1,24 +1,25 @@
-FROM maven:3.8.6-jdk-8 AS builder
-
-WORKDIR /app
-
-COPY ../cms/pom.xml ./pom.xml
-COPY ../cms/src ./src
-
-RUN mvn clean package -DskipTests
-
-FROM tomcat:8.5.88-jdk8-temurin
+FROM maven:3.8.6-eclipse-temurin-11
 
 ENV TZ=Asia/Shanghai
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+ENV LANG=C.UTF-8
+ENV CATALINA_HOME=/usr/local/tomcat
+ENV PATH=$CATALINA_HOME/bin:$PATH
 
-RUN rm -rf /usr/local/tomcat/webapps/*
+WORKDIR /usr/local/tomcat
 
-COPY --from=builder /app/target/opening-cms.war /usr/local/tomcat/webapps/ROOT.war
+COPY tomcat.tar.gz /tmp/tomcat.tar.gz
 
-COPY ./docker/tomcat/db.properties /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/db.properties
+RUN mkdir -p /usr/local/tomcat && \
+    tar -xf /tmp/tomcat.tar.gz -C /usr/local/tomcat --strip-components=1 && \
+    rm -f /tmp/tomcat.tar.gz && \
+    rm -rf /usr/local/tomcat/webapps/*
 
-RUN mkdir -p /usr/local/tomcat/webapps/ROOT/WEB-INF/classes
+COPY cms/target/opening-cms.war /usr/local/tomcat/webapps/ROOT.war
+
+RUN mkdir -p /usr/local/tomcat/conf/resources
+COPY docker/tomcat/db.properties /usr/local/tomcat/conf/resources/db.properties
+
+ENV CATALINA_OPTS="-Ddb.config=/usr/local/tomcat/conf/resources/db.properties -Dfile.encoding=UTF-8 -Xms512m -Xmx1024m"
 
 EXPOSE 8080
 

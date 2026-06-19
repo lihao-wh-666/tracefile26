@@ -12,7 +12,7 @@ services:
       MYSQL_PASSWORD: opening123
       TZ: Asia/Shanghai
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
       - mysql_data:/var/lib/mysql
@@ -37,11 +37,11 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./docker/tomcat/db.properties:/usr/local/tomcat/webapps/ROOT/WEB-INF/classes/db.properties
+      - ./docker/tomcat/db.properties:/usr/local/tomcat/conf/resources/db.properties:ro
       - tomcat_logs:/usr/local/tomcat/logs
     environment:
       TZ: Asia/Shanghai
-      JAVA_OPTS: -Xms512m -Xmx1024m -Dfile.encoding=UTF-8
+      CATALINA_OPTS: "-Xms512m -Xmx1024m -Dfile.encoding=UTF-8 -Ddb.config=/usr/local/tomcat/conf/resources/db.properties"
     depends_on:
       mysql:
         condition: service_healthy
