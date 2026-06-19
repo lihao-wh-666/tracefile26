@@ -47,7 +47,7 @@
                 </div>
                 <div class="detail-row">
                     <div class="detail-label">账户余额</div>
-                    <div class="detail-value" style="font-size: 18px; font-weight: 600; color: #1890ff;">
+                    <div class="detail-value" style="font-size: 18px; font-weight: 700; color: var(--color-primary);">
                         <c:out value="${account.balance}" />
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                 </div>
                 <div class="detail-row">
                     <div class="detail-label">可用余额</div>
-                    <div class="detail-value" style="font-weight: 600; color: #52c41a;">
+                    <div class="detail-value" style="font-weight: 700; color: var(--color-success);">
                         <c:out value="${account.availableBalance}" />
                     </div>
                 </div>
@@ -158,5 +158,6 @@
         </div>
     </div>
 </div>
+<script src="${ctx}/static/js/app.js"></script>
 </body>
 </html>

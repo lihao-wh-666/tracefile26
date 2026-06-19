@@ -158,5 +158,6 @@
         </div>
     </div>
 </div>
+<script src="${ctx}/static/js/app.js"></script>
 </body>
 </html>

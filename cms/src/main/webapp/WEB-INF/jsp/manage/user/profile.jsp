@@ -49,7 +49,7 @@
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label>真实姓名 <span style="color: red;">*</span></label>
+                            <label>真实姓名 <span class="required-star">*</span></label>
                             <input type="text" name="realName" class="form-control" required value="${user.realName}">
                         </div>
 
@@ -92,5 +92,6 @@
         </div>
     </div>
 </div>
+<script src="${ctx}/static/js/app.js"></script>
 </body>
 </html>

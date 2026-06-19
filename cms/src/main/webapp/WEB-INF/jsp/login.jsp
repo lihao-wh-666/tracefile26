@@ -38,10 +38,10 @@
                        placeholder="请输入密码" required>
             </div>
 
-            <button type="submit" class="btn btn-primary">登 录</button>
+            <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">登 录</button>
         </form>
 
-        <div style="margin-top: 20px; text-align: center; color: #999; font-size: 12px;">
+        <div style="margin-top: 24px; text-align: center; color: var(--color-text-disabled); font-size: 12px;">
             默认账号: admin / auditor01 / operator01 &nbsp;&nbsp; 密码: admin123
         </div>
     </div>

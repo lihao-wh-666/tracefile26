@@ -35,17 +35,17 @@
                     <input type="hidden" name="action" value="password">
 
                     <div class="form-group">
-                        <label>原密码 <span style="color: red;">*</span></label>
+                        <label>原密码 <span class="required-star">*</span></label>
                         <input type="password" name="oldPassword" class="form-control" required placeholder="请输入原密码">
                     </div>
 
                     <div class="form-group">
-                        <label>新密码 <span style="color: red;">*</span></label>
+                        <label>新密码 <span class="required-star">*</span></label>
                         <input type="password" name="newPassword" class="form-control" required placeholder="请输入新密码（至少6位）" minlength="6">
                     </div>
 
                     <div class="form-group">
-                        <label>确认新密码 <span style="color: red;">*</span></label>
+                        <label>确认新密码 <span class="required-star">*</span></label>
                         <input type="password" name="confirmPassword" class="form-control" required placeholder="请再次输入新密码" minlength="6">
                     </div>
 
@@ -58,5 +58,6 @@
         </div>
     </div>
 </div>
+<script src="${ctx}/static/js/app.js"></script>
 </body>
 </html>

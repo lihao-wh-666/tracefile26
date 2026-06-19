@@ -5,7 +5,10 @@
     request.setAttribute("ctx", path);
 %>
 <div class="header">
-    <div class="header-title">非现场开户管理平台</div>
+    <div style="display: flex; align-items: center; gap: 12px;">
+        <button class="sidebar-toggle" id="sidebarToggle" type="button">&#9776;</button>
+        <div class="header-title">非现场开户管理平台</div>
+    </div>
     <div class="header-user">
         <span>欢迎，<c:out value="${loginUser.realName}" /></span>
         <span class="tag tag-blue"><c:out value="${loginUser.roleDesc}" /></span>

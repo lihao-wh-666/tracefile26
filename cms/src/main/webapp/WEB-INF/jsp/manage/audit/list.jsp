@@ -103,7 +103,7 @@
                         </c:when>
                         <c:otherwise>
                             <tr>
-                                <td colspan="9" style="text-align: center; padding: 40px; color: #999;">暂无数据</td>
+                                <td colspan="9" class="empty-row">暂无数据</td>
                             </tr>
                         </c:otherwise>
                     </c:choose>
@@ -139,5 +139,6 @@
         </div>
     </div>
 </div>
+<script src="${ctx}/static/js/app.js"></script>
 </body>
 </html>

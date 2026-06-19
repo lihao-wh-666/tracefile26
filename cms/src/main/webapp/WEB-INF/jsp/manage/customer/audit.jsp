@@ -88,7 +88,7 @@
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label>审核结果 <span style="color: red;">*</span></label>
+                            <label>审核结果 <span class="required-star">*</span></label>
                             <select name="auditStatus" class="form-control" required>
                                 <option value="">请选择审核结果</option>
                                 <option value="1">审核通过</option>
@@ -113,5 +113,6 @@
         </div>
     </div>
 </div>
+<script src="${ctx}/static/js/app.js"></script>
 </body>
 </html>

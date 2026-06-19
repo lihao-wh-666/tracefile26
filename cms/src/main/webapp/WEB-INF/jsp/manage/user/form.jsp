@@ -36,7 +36,7 @@
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label>用户名 <span style="color: red;">*</span></label>
+                            <label>用户名 <span class="required-star">*</span></label>
                             <input type="text" name="username" class="form-control" required
                                    value="${user != null ? user.username : ''}"
                                 <%= "edit".equals(formAction) ? "readonly" : "" %>
@@ -44,7 +44,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>真实姓名 <span style="color: red;">*</span></label>
+                            <label>真实姓名 <span class="required-star">*</span></label>
                             <input type="text" name="realName" class="form-control" required
                                    value="${user != null ? user.realName : ''}" placeholder="请输入真实姓名">
                         </div>
@@ -52,13 +52,13 @@
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label>密码 <span style="color: red;">*</span></label>
+                            <label>密码 <span class="required-star">*</span></label>
                             <input type="password" name="password" class="form-control"
                                    placeholder="<%= "edit".equals(formAction) ? "不修改请留空" : "请输入密码，默认123456" %>">
                         </div>
 
                         <div class="form-group">
-                            <label>角色 <span style="color: red;">*</span></label>
+                            <label>角色 <span class="required-star">*</span></label>
                             <select name="role" class="form-control" required>
                                 <option value="admin" ${user != null && user.role == 'admin' ? 'selected' : ''}>管理员</option>
                                 <option value="auditor" ${user != null && user.role == 'auditor' ? 'selected' : ''}>审核员</option>
@@ -98,5 +98,6 @@
         </div>
     </div>
 </div>
+<script src="${ctx}/static/js/app.js"></script>
 </body>
 </html>

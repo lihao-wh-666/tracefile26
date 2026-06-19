@@ -36,7 +36,7 @@
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label>姓名 <span style="color: red;">*</span></label>
+                            <label>姓名 <span class="required-star">*</span></label>
                             <input type="text" name="realName" class="form-control" required
                                    value="${customer != null ? customer.realName : ''}" placeholder="请输入真实姓名">
                         </div>
@@ -58,7 +58,7 @@
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label>证件类型 <span style="color: red;">*</span></label>
+                            <label>证件类型 <span class="required-star">*</span></label>
                             <select name="idType" class="form-control" required>
                                 <option value="ID_CARD" ${customer != null && customer.idType == 'ID_CARD' ? 'selected' : ''}>身份证</option>
                                 <option value="PASSPORT" ${customer != null && customer.idType == 'PASSPORT' ? 'selected' : ''}>护照</option>
@@ -67,7 +67,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>证件号码 <span style="color: red;">*</span></label>
+                            <label>证件号码 <span class="required-star">*</span></label>
                             <input type="text" name="idNo" class="form-control" required
                                    value="${customer != null ? customer.idNo : ''}" placeholder="请输入证件号码">
                         </div>
@@ -75,7 +75,7 @@
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label>手机号码 <span style="color: red;">*</span></label>
+                            <label>手机号码 <span class="required-star">*</span></label>
                             <input type="tel" name="phone" class="form-control" required
                                    value="${customer != null ? customer.phone : ''}" placeholder="请输入手机号码">
                         </div>
@@ -143,5 +143,6 @@
         </div>
     </div>
 </div>
+<script src="${ctx}/static/js/app.js"></script>
 </body>
 </html>

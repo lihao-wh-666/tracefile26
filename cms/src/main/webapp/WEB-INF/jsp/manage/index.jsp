@@ -63,7 +63,7 @@
 
             <div class="card">
                 <div class="card-title">客户状态说明</div>
-                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <div class="toolbar" style="gap: 20px;">
                     <span class="tag tag-gray">待审核</span>
                     <span class="tag tag-orange">审核中</span>
                     <span class="tag tag-green">审核通过</span>
@@ -74,5 +74,6 @@
         </div>
     </div>
 </div>
+<script src="${ctx}/static/js/app.js"></script>
 </body>
 </html>

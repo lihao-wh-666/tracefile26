@@ -7,17 +7,18 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>500 - 服务器错误</title>
     <link rel="stylesheet" href="${ctx}/static/css/style.css">
 </head>
 <body>
-<div class="login-wrapper">
-    <div class="login-box" style="text-align: center;">
-        <h1 style="font-size: 72px; color: #ff4d4f; margin-bottom: 20px;">500</h1>
-        <h2 style="margin-bottom: 16px;">服务器内部错误</h2>
-        <p style="color: #999; margin-bottom: 20px;">服务器发生异常，请稍后重试</p>
+<div class="error-page">
+    <div class="error-box">
+        <div class="error-code danger">500</div>
+        <div class="error-title">服务器内部错误</div>
+        <div class="error-desc">服务器发生异常，请稍后重试</div>
         <% if (exception != null) { %>
-        <div style="text-align: left; background: #fff2f0; padding: 12px; border-radius: 4px; margin-bottom: 20px; font-size: 12px; color: #ff4d4f; max-height: 150px; overflow-y: auto;">
+        <div class="error-detail">
             <%= exception.getMessage() %>
         </div>
         <% } %>

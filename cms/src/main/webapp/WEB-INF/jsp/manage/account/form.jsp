@@ -36,7 +36,7 @@
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label>选择客户 <span style="color: red;">*</span></label>
+                            <label>选择客户 <span class="required-star">*</span></label>
                             <select name="customerId" class="form-control" required>
                                 <option value="">请选择客户（仅显示已审核通过的客户）</option>
                                 <c:forEach items="${customers}" var="customer">
@@ -47,12 +47,12 @@
                                 </c:forEach>
                             </select>
                             <c:if test="${empty customers}">
-                                <div style="color: #faad14; font-size: 12px; margin-top: 5px;">暂无已审核通过的客户，请先审核客户信息</div>
+                                <div class="hint-text">暂无已审核通过的客户，请先审核客户信息</div>
                             </c:if>
                         </div>
 
                         <div class="form-group">
-                            <label>账户类型 <span style="color: red;">*</span></label>
+                            <label>账户类型 <span class="required-star">*</span></label>
                             <select name="accountType" class="form-control" required>
                                 <option value="NORMAL" ${account != null && account.accountType == 'NORMAL' ? 'selected' : ''}>普通账户</option>
                                 <option value="VIP" ${account != null && account.accountType == 'VIP' ? 'selected' : ''}>VIP账户</option>
@@ -124,5 +124,6 @@
         </div>
     </div>
 </div>
+<script src="${ctx}/static/js/app.js"></script>
 </body>
 </html>
