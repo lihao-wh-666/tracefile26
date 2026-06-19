@@ -1,0 +1,14 @@
+**/target
+**/.classpath
+**/.project
+**/.settings
+**/.idea
+**/*.iml
+**/.git
+**/.gitignore
+**/node_modules
+**/npm-debug.log
+**/Dockerfile
+**/docker-compose.yml
+README.md
+*.md

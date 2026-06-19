@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0.33
+    container_name: opening-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: opening_cms
+      MYSQL_USER: opening
+      MYSQL_PASSWORD: opening123
+      TZ: Asia/Shanghai
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql_data:/var/lib/mysql
+    command:
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+    networks:
+      - opening-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  tomcat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: opening-tomcat
+    restart: always
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./docker/tomcat/db.properties:/usr/local/tomcat/webapps/ROOT/WEB-INF/classes/db.properties
+      - tomcat_logs:/usr/local/tomcat/logs
+    environment:
+      TZ: Asia/Shanghai
+      JAVA_OPTS: -Xms512m -Xmx1024m -Dfile.encoding=UTF-8
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - opening-network
+
+volumes:
+  mysql_data:
+  tomcat_logs:
+
+networks:
+  opening-network:
+    driver: bridge
