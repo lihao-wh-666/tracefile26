@@ -24,6 +24,18 @@ public class EncodingFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
 
+        String uri = req.getRequestURI();
+        boolean isStaticResource = uri.endsWith(".css") || uri.endsWith(".js")
+                || uri.endsWith(".png") || uri.endsWith(".jpg") || uri.endsWith(".jpeg")
+                || uri.endsWith(".gif") || uri.endsWith(".svg") || uri.endsWith(".ico")
+                || uri.endsWith(".woff") || uri.endsWith(".woff2") || uri.endsWith(".ttf")
+                || uri.endsWith(".map");
+
+        if (isStaticResource) {
+            chain.doFilter(req, resp);
+            return;
+        }
+
         req.setCharacterEncoding(encoding);
         resp.setCharacterEncoding(encoding);
         resp.setContentType("text/html;charset=" + encoding);

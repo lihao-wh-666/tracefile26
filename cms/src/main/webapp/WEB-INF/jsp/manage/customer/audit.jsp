@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>客户审核 - 非现场开户管理平台</title>
-    <link rel="stylesheet" href="${ctx}/static/css/tailwind-output.css">
+    <link rel="stylesheet" href="${ctx}/static/css/tailwind-output.css?v=20260620">
 </head>
 <body>
 <div class="layout">
