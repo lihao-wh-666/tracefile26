@@ -59,6 +59,7 @@ public class DBUtil {
             setPropertyIfExists(druidProps, "testOnReturn", props, "db.testOnReturn");
             setPropertyIfExists(druidProps, "poolPreparedStatements", props, "db.poolPreparedStatements");
             setPropertyIfExists(druidProps, "maxPoolPreparedStatementPerConnectionSize", props, "db.maxPoolPreparedStatementPerConnectionSize");
+            setPropertyIfExists(druidProps, "connectionInitSqls", props, "db.connectionInitSqls");
 
             dataSource = (DruidDataSource) DruidDataSourceFactory.createDataSource(druidProps);
             System.out.println("[DBUtil] DataSource initialized successfully, url=" + props.getProperty("db.url"));

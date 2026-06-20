@@ -2,9 +2,13 @@
 -- 非现场开户管理平台 - 数据库初始化脚本
 -- ========================================
 
+SET NAMES utf8mb4;
+SET CHARACTER SET utf8mb4;
+
 CREATE DATABASE IF NOT EXISTS opening_cms DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 USE opening_cms;
+SET NAMES utf8mb4;
 
 -- ----------------------------------------
 -- 系统用户表
