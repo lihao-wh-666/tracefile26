@@ -104,6 +104,30 @@ CREATE TABLE `audit_record` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='审核记录表';
 
 -- ----------------------------------------
+-- 营业部表
+-- ----------------------------------------
+DROP TABLE IF EXISTS `department`;
+CREATE TABLE `department` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `dept_no` VARCHAR(32) NOT NULL UNIQUE COMMENT '营业部编号',
+    `dept_name` VARCHAR(100) NOT NULL COMMENT '营业部名称',
+    `address` VARCHAR(255) NOT NULL COMMENT '营业部地址',
+    `phone` VARCHAR(20) NOT NULL COMMENT '营业部电话',
+    `introduction` VARCHAR(500) COMMENT '营业部介绍',
+    `province` VARCHAR(50) NOT NULL COMMENT '所在省',
+    `city` VARCHAR(50) NOT NULL COMMENT '所在市',
+    `status` TINYINT NOT NULL DEFAULT 1 COMMENT '状态: 1-启用, 0-禁用',
+    `create_by` BIGINT COMMENT '创建人ID',
+    `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX `idx_dept_no` (`dept_no`),
+    INDEX `idx_dept_name` (`dept_name`),
+    INDEX `idx_province` (`province`),
+    INDEX `idx_city` (`city`),
+    INDEX `idx_status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='营业部表';
+
+-- ----------------------------------------
 -- 操作日志表
 -- ----------------------------------------
 DROP TABLE IF EXISTS `operation_log`;
@@ -151,3 +175,11 @@ INSERT INTO `audit_record` (`customer_id`, `audit_type`, `audit_status`, `audit_
 (1, 'CUSTOMER_INFO', 1, '客户信息完整，身份认证通过', 2, '2026-06-10 09:25:00'),
 (1, 'OPEN_ACCOUNT', 1, '开户申请审核通过', 2, '2026-06-10 09:28:00'),
 (2, 'CUSTOMER_INFO', 1, '资料齐全，审核通过', 2, '2026-06-15 10:40:00');
+
+-- 示例营业部数据
+INSERT INTO `department` (`dept_no`, `dept_name`, `address`, `phone`, `introduction`, `province`, `city`, `status`, `create_by`) VALUES
+('D202606180001', '北京朝阳营业部', '北京市朝阳区建国路88号SOHO现代城A座1层', '010-88888888', '北京朝阳营业部成立于2010年，是公司在华北地区的核心营业部，致力于为客户提供专业、高效的金融服务。', '北京市', '北京市', 1, 1),
+('D202606180002', '上海浦东营业部', '上海市浦东新区陆家嘴环路1000号恒生银行大厦5层', '021-66666666', '上海浦东营业部位于金融中心陆家嘴，拥有专业的服务团队，为客户提供全方位的投资理财服务。', '上海市', '上海市', 1, 1),
+('D202606180003', '广州天河营业部', '广州市天河区珠江新城华夏路10号富力中心3层', '020-33333333', '广州天河营业部是公司在华南地区的重要网点，服务范围覆盖珠三角地区，为客户提供优质的金融服务体验。', '广东省', '广州市', 1, 1),
+('D202606180004', '深圳南山营业部', '深圳市南山区科技园南区深南大道9996号松日鼎盛大厦8层', '0755-22222222', '深圳南山营业部紧邻科技园，专注服务科创企业和高净值客户，提供创新型金融产品和服务。', '广东省', '深圳市', 1, 1),
+('D202606180005', '成都武侯营业部', '成都市武侯区天府大道北段1480号拉德方斯大厦6层', '028-88888888', '成都武侯营业部是公司在西南地区的重要布局，为四川及周边地区客户提供专业的投资理财服务。', '四川省', '成都市', 0, 1);
