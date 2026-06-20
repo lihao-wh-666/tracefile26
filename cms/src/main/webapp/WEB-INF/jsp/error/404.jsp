@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 - 页面不存在</title>
-    <link rel="stylesheet" href="${ctx}/static/css/style.css">
+    <link rel="stylesheet" href="${ctx}/static/css/tailwind-output.css">
 </head>
 <body>
 <div class="error-page">
